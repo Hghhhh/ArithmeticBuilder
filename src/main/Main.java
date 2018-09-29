@@ -125,10 +125,12 @@ public class Main {
         for(int i = 1;i<=expressionNum;){
             try {
                 Expression expression = new Expression(maxNum);
-                expressions.add(expression);
-                exercisesBufferedWriter.write(i +". "+expression.getExpression()+"\n");
-                answersBufferedWriter.write(i +". "+expression.getResult().toString()+"\n");
-                i++;
+                //如果表达式不重复，则写入输出文件
+                if(expressions.add(expression)){
+                    exercisesBufferedWriter.write(i +". "+expression.getExpression()+"\n");
+                    answersBufferedWriter.write(i +". "+expression.getResult().toString()+"\n");
+                    i++;
+                }
             } catch (Exception e) {
 
             }

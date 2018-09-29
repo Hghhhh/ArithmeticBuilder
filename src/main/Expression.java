@@ -237,7 +237,9 @@ public class Expression {
     @Override
     public boolean equals(Object obj) {
         Expression expression = (Expression)obj;
-        if(expression.getResult().equals(this.result)){
+        //先判断表达式的结果是否相同
+        if(expression.getResult().toString().equals(this.result.toString())){
+            //再判断二叉树是否相同
             if(expression.getRoot().equals(this.root)){
                 return true;
             }

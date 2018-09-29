@@ -1,5 +1,12 @@
 package main;
 
+/**
+ * 测试部分随机生成的表达式计算结果错误的bug
+ */
+/**
+ * bug已解决，原因：形如表达式a+b-(c-d)打印出来没有加括号，变成了a+b-c-d，导致将表达式输入的时候统计的计算结果出错
+ */
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

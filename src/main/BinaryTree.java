@@ -48,6 +48,9 @@ public class BinaryTree {
      * @return
      */
     public static boolean addBrackets(String symbol1,String symbol2,int leftOrRight){
+        if(symbol2==null){
+            return false;
+        }
         if(symbol1.equals(SYMBOL[1])){
             if(symbol2.equals(SYMBOL[1])||symbol2.equals(SYMBOL[0])) {
                 if (leftOrRight == 2) return true;

@@ -2,6 +2,9 @@ package main;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 public class ExpressionTest {
@@ -27,19 +30,15 @@ public class ExpressionTest {
             fraction4.setMolecule(2);
             fraction4.setDenominator(1);
             binaryTree = new BinaryTree();
-            binaryTree.symbol = "÷";
+            binaryTree.symbol = "+";
             binaryTree.rightChild = new BinaryTree();
-            binaryTree.rightChild.symbol = "*";
+            binaryTree.rightChild.symbol = "+";
             binaryTree.rightChild.leftChild = new BinaryTree();
             binaryTree.rightChild.rightChild = new BinaryTree();
-            binaryTree.rightChild.leftChild.symbol="*";
-            binaryTree.rightChild.leftChild.leftChild = new BinaryTree();
-            binaryTree.rightChild.leftChild.rightChild = new BinaryTree();
-            binaryTree.rightChild.leftChild.leftChild.fraction = fraction1;
-            binaryTree.rightChild.leftChild.rightChild.fraction = fraction2;
-            binaryTree.rightChild.rightChild.fraction = fraction3;
+            binaryTree.rightChild.leftChild.fraction = fraction2;
+            binaryTree.rightChild.rightChild.fraction = fraction1;
             binaryTree.leftChild = new BinaryTree();
-            binaryTree.leftChild.fraction = fraction4;
+            binaryTree.leftChild.fraction = fraction3;
         try {
             expression = new Expression(10);
 
@@ -48,19 +47,15 @@ public class ExpressionTest {
         }
 
         binaryTree2 = new BinaryTree();
-        binaryTree2.symbol = "÷";
-        binaryTree2.rightChild = new BinaryTree();
-        binaryTree2.rightChild.symbol = "*";
-        binaryTree2.rightChild.leftChild = new BinaryTree();
-        binaryTree2.rightChild.rightChild = new BinaryTree();
-        binaryTree2.rightChild.rightChild.symbol="*";
-        binaryTree2.rightChild.rightChild.leftChild = new BinaryTree();
-        binaryTree2.rightChild.rightChild.rightChild = new BinaryTree();
-        binaryTree2.rightChild.rightChild.rightChild.fraction = fraction1;
-        binaryTree2.rightChild.rightChild.leftChild.fraction = fraction2;
-        binaryTree2.rightChild.leftChild.fraction = fraction3;
+        binaryTree2.symbol = "+";
         binaryTree2.leftChild = new BinaryTree();
-        binaryTree2.leftChild.fraction = fraction4;
+        binaryTree2.leftChild.symbol = "+";
+        binaryTree2.leftChild.leftChild = new BinaryTree();
+        binaryTree2.leftChild.rightChild = new BinaryTree();
+        binaryTree2.leftChild.rightChild.fraction = fraction2;
+        binaryTree2.leftChild.leftChild.fraction =fraction1;
+        binaryTree2.rightChild = new BinaryTree();
+        binaryTree2.rightChild.fraction = fraction3;
 
     }
 
@@ -80,6 +75,7 @@ public class ExpressionTest {
             for(int i=0;i<10;i++) {
                 try {
                     Expression expression = new Expression(10);
+                    System.out.println(expression.getExpression());
                 }catch (Exception e){
 
                 }
@@ -101,6 +97,8 @@ public class ExpressionTest {
 
     @Test
     public void testEquals() throws Exception {
+        System.out.println(binaryTree2.hashCode()+"   "+binaryTree.hashCode());
+        Set<Expression> expressions = new HashSet<Expression>();
         expression.setRoot(binaryTree);
         expression.setResult(expression.getResult(binaryTree));
         expression.setExpression(binaryTree.midTraversing()+" =");
@@ -109,6 +107,9 @@ public class ExpressionTest {
         expression2.setResult(expression2.getResult(binaryTree2));
         expression2.setExpression(binaryTree2.midTraversing()+" = ");
         assertEquals(true,expression2.equals(expression));
+        expressions.add(expression);
+        assertEquals(false,expressions.add(expression2));
+        System.out.println(expressions.toString()+expressions.size());
     }
 
     @Test
@@ -155,34 +156,6 @@ public class ExpressionTest {
         String s = binaryTree.midTraversing();
         String result = expression.getResult(binaryTree).toString();
         System.out.println(s+" = " + result);
-    }
-
-    @Test
-    public void b() throws Exception {
-        BinaryTree binaryTree = new BinaryTree();
-        binaryTree.symbol="-";
-        binaryTree.rightChild = new BinaryTree();
-        binaryTree.rightChild.fraction  =fraction4;
-        binaryTree.leftChild = new BinaryTree();
-        binaryTree.leftChild.symbol="-";
-        binaryTree.leftChild.rightChild = new BinaryTree();
-        binaryTree.leftChild.rightChild.fraction = fraction3;
-        binaryTree.leftChild.leftChild = new BinaryTree();
-        binaryTree.leftChild.leftChild.symbol="*";
-        binaryTree.leftChild.leftChild.rightChild = new BinaryTree();
-        binaryTree.leftChild.leftChild.rightChild.fraction = fraction2;
-        binaryTree.leftChild.leftChild.leftChild = new BinaryTree();
-        binaryTree.leftChild.leftChild.leftChild.fraction = fraction1;
-        System.out.println(binaryTree.midTraversing());
-        expression.getResult(binaryTree);
-        System.out.println(binaryTree.midTraversing());
-
-    }
-
-    public void a(BinaryTree v){
-        BinaryTree b = v.rightChild;
-        v.rightChild = v.leftChild;
-        v.leftChild = b;
     }
 
 }

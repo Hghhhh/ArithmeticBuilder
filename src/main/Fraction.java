@@ -139,7 +139,7 @@ public class Fraction {
     }
 
     /**
-     * 将分数对象的toString方法
+     * 将分数对象按真分数的表示方法打印
      * @return String
      */
     @Override
@@ -149,11 +149,11 @@ public class Fraction {
         }
         else{
             int prefix = molecule/denominator;
-
             int realMolecule = molecule % denominator;
             if(realMolecule==0){
                 return prefix+"";
             }
+            //拿分子分母的最小公因数
             int commonFactor = Math.abs(getCommonFactor(denominator,realMolecule));
             if(prefix==0){
                 return realMolecule/commonFactor+"/"+denominator/commonFactor;
